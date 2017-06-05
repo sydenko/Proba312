@@ -4,33 +4,6 @@
 Интересно получится ли вставить сюда svg код?
 Интересно <i>можно</i> <h1>ли My-Test-Edit</h1> <b>тут форматировать?</b>
 
-<svg version="1.1" baseProfile="full"  href="pajalnik.htm"
-xmlns="http://www.w3.org/2000/svg"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-width="100%" height="100%" viewBox="0 0 2320 630">
-<!-- width="2320" height="630" viewBox="0 0 6960 1890"> -->
-<!-- width="1160" height="315" viewBox="0 0 2320 630"> -->
-<!-- width="580" height="157.5" viewBox="0 0 2320 630"> -->
-<!-- width="464" height="126" viewBox="0 0 2320 630"> -->
-<!-- width="232" height="63" viewBox="0 0 2320 630"> -->
-
-
-<!-- width="464" height="126" viewBox="0 0 2320 630"> -->
-<!-- width="2320" height="630" viewBox="0 0 6960 1890"> -->
-<!-- width="232" height="63" viewBox="0 0 6960 1890"> -->
-<!-- width="166" height="226" viewBox="0 0 6960 1890"> -->
-
-<title>sPlan</title>
-<defs>
-<style type="text/css">
-<![CDATA[
-polyline {stroke-linecap:round; stroke-linejoin:round}
-polygon {stroke-linecap:round; stroke-linejoin:round}
-path {stroke-linecap:round; stroke-linejoin:round}
-circle {stroke-linecap:round; stroke-linejoin:round}
-]]>
-</style>
-</defs>
 <a xlink:href="pajalnik.htm" target="_blank">
 <text x="860.00" y="55.00" font-family ="Arial" font-size ="28pt" font-weight="bold" font-style="normal" fill="rgb(255,0,0)" transform=" rotate(0.000) scale(1.000,1.000)">ВНИМАНИЕ !!! файл открыыт локально с FrameZona</text>
 <path fill="rgb(255,210,233)" stroke="rgb(0,0,0)" stroke-width="2" style="stroke-linecap:square; stroke-linejoin:miter" d=" M 250 230 L 820 230 820 270 250 270 250 230" />
@@ -107,4 +80,3 @@ circle {stroke-linecap:round; stroke-linejoin:round}
 <text x="60.00" y="582.00" font-family ="Arial" font-size ="28pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.000,1.000)">В моей конструкции предумотрено также PWM(ШИМ) управление нагревательным элементом. Возможно даже горелкой.</text>
 <text x="60.00" y="622.00" font-family ="Arial" font-size ="28pt" font-weight="normal" font-style="normal" fill="rgb(0,0,0)" transform=" rotate(0.000) scale(1.000,1.000)">Теперь самое интересное. Это SVG графика!!!</text>
 </a>
-</svg>
