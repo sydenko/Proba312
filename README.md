@@ -1,12 +1,10 @@
 # hello-world (Auto-tahometr-arduinoProMini-LCD)
-Моя первая попытки освоить сервис https://guides.github.com/activities/hello-world/ <br />
-<a href="https://guides.github.com/activities/hello-world/">освоить сервис</a>
+Моя первая попытка <a href="https://guides.github.com/activities/hello-world/">освоить этот сервис</a> https://guides.github.com/activities/hello-world/ <br />
 <br>
 <b>Поэтому</b> <i>прошу строго не судить</i>, <b>мне</b> и так <b>стыдно</b>, что вы это видите.
 Но ничего поделать не могу т.к. по условиям предоставления сервиса прятать можно только при условии платного аккаунта.
-<br>Интересно получится ли вставить сюда табличку<br>
-
-
+<br>
+<br><b>Пробую вставить табличку</b><br>
 <table>
    <tr color="red" >
     <th>&nbsp;</th><th>2016</th><th>2017</th><th>2018</th>
@@ -22,5 +20,5 @@
    </tr>
   </table>
 <br>
-<h1>Auto-tahometr-arduinoProMini-LCD</h1> <b>CodeWizardAVR</b> создаст успешно все недостающие папки, но запустить прийдётся несколько раз для коррекции путей проекта.
+<h1>Auto-tahometr-arduinoProMini-LCD</h1> <b>CodeWizardAVR</b> создаст успешно все недостающие папки, но перезапустить прийдётся несколько раз.
 
