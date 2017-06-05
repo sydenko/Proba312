@@ -3,26 +3,28 @@ CodeWizardAVR V3.12 Advanced http://www.hpinfotech.com
 Project :Version :Date    : 23.03.2017 Author  :Company :Comments:
 Chip type               : ATmega328P
 AVR Core Clock frequency: 16,000000 MHz 
+РћРћРћ
+РћРћРћС‡РµРЅСЊ РёРЅС‚РµСЂРµСЃРЅР°СЏ РёСЃС‚РѕСЂРёСЏ
 *******************************************************/
 #include <mega328p.h>
 #include <delay.h>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Библиотека stdio.h, содержит функцию sprint() // void sprintf(char *str, char flash *fmtstr,...);
-// Первым параметром мы передаем переменную, в которую будет записан результат выполнения функции.
-// Второй параметр – форматированная строка. //Остальные – переменные.
-// Вот пример использования:
+// Р‘РёР±Р»РёРѕС‚РµРєР° stdio.h, СЃРѕРґРµСЂР¶РёС‚ С„СѓРЅРєС†РёСЋ sprint() // void sprintf(char *str, char flash *fmtstr,...);
+// РџРµСЂРІС‹Рј РїР°СЂР°РјРµС‚СЂРѕРј РјС‹ РїРµСЂРµРґР°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ, РІ РєРѕС‚РѕСЂСѓСЋ Р±СѓРґРµС‚ Р·Р°РїРёСЃР°РЅ СЂРµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ С„СѓРЅРєС†РёРё.
+// Р’С‚РѕСЂРѕР№ РїР°СЂР°РјРµС‚СЂ вЂ“ С„РѕСЂРјР°С‚РёСЂРѕРІР°РЅРЅР°СЏ СЃС‚СЂРѕРєР°. //РћСЃС‚Р°Р»СЊРЅС‹Рµ вЂ“ РїРµСЂРµРјРµРЅРЅС‹Рµ.
+// Р’РѕС‚ РїСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ:
 // char day=22, month=12,  year=2008;
-// sprint(text,“Data: %d.%d.%d”,day,month,year);
+// sprint(text,вЂњData: %d.%d.%dвЂќ,day,month,year);
 #include <stdio.h>
 // 1 Wire Bus interface functions
 #include <1wire.h>
 // DS1820 Temperature Sensor functions //#include <ds1820.h>
 #include "my18b20.h"
 // Alphanumeric LCD functions
-#include <alcd.h>   // Подключаем библиотеку дисплея 
+#include <alcd.h>   // РџРѕРґРєР»СЋС‡Р°РµРј Р±РёР±Р»РёРѕС‚РµРєСѓ РґРёСЃРїР»РµСЏ 
 #include <stdlib.h>
-#define pause delay_ms(1) // Объявляем переменную pause, которая будет осуществлять задержку
-int bFdrawTermoU = 0; // Флаг резрешения рисовать температуры
+#define pause delay_ms(1) // РћР±СЉСЏРІР»СЏРµРј РїРµСЂРµРјРµРЅРЅСѓСЋ pause, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РѕСЃСѓС‰РµСЃС‚РІР»СЏС‚СЊ Р·Р°РґРµСЂР¶РєСѓ
+int bFdrawTermoU = 0; // Р¤Р»Р°Рі СЂРµР·СЂРµС€РµРЅРёСЏ СЂРёСЃРѕРІР°С‚СЊ С‚РµРјРїРµСЂР°С‚СѓСЂС‹
 #define ROZ_1	281
 #define ROZ_2	562
 #define ROZ_3	843
@@ -41,63 +43,63 @@ int bFdrawTermoU = 0; // Флаг резрешения рисовать температуры
 #define ROZ_16	4496
 #define ROZ_17	4777
 #define ROZ_18	5058  
-// Константа, определяющая максимальное число датчиков, подключенных к МК #define MAXDEVICES 10
+// РљРѕРЅСЃС‚Р°РЅС‚Р°, РѕРїСЂРµРґРµР»СЏСЋС‰Р°СЏ РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ РґР°С‚С‡РёРєРѕРІ, РїРѕРґРєР»СЋС‡РµРЅРЅС‹С… Рє РњРљ #define MAXDEVICES 10
 #define MAX_DS1820 3
-unsigned char ds1820_devices;	// Переменная, в которую записывается число найденных датчиков.
-// Переменная, в которой хранятся идентификационные коды найденных датчиков.
-// для каждого устройства используются 9 байт (см. Описание функции w1_search в справке)
+unsigned char ds1820_devices;	// РџРµСЂРµРјРµРЅРЅР°СЏ, РІ РєРѕС‚РѕСЂСѓСЋ Р·Р°РїРёСЃС‹РІР°РµС‚СЃСЏ С‡РёСЃР»Рѕ РЅР°Р№РґРµРЅРЅС‹С… РґР°С‚С‡РёРєРѕРІ.
+// РџРµСЂРµРјРµРЅРЅР°СЏ, РІ РєРѕС‚РѕСЂРѕР№ С…СЂР°РЅСЏС‚СЃСЏ РёРґРµРЅС‚РёС„РёРєР°С†РёРѕРЅРЅС‹Рµ РєРѕРґС‹ РЅР°Р№РґРµРЅРЅС‹С… РґР°С‚С‡РёРєРѕРІ.
+// РґР»СЏ РєР°Р¶РґРѕРіРѕ СѓСЃС‚СЂРѕР№СЃС‚РІР° РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ 9 Р±Р°Р№С‚ (СЃРј. РћРїРёСЃР°РЅРёРµ С„СѓРЅРєС†РёРё w1_search РІ СЃРїСЂР°РІРєРµ)
 unsigned char ds1820_rom_codes[MAX_DS1820][9];
 
-char i; // Переменная для счетчика для анимации Используется в цикле конфигурирования датчиков
+char i; // РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ СЃС‡РµС‚С‡РёРєР° РґР»СЏ Р°РЅРёРјР°С†РёРё РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ С†РёРєР»Рµ РєРѕРЅС„РёРіСѓСЂРёСЂРѕРІР°РЅРёСЏ РґР°С‚С‡РёРєРѕРІ
 ///////////////////////////////////////////////////////////////////////////////////////
-typedef unsigned char byte;    // Объявляем новый тип переменной 
-// Определяем непосредственно сам символ (имеет 5 точек в ширину и 7 в высоту) // 223 - градус
+typedef unsigned char byte;    // РћР±СЉСЏРІР»СЏРµРј РЅРѕРІС‹Р№ С‚РёРї РїРµСЂРµРјРµРЅРЅРѕР№ 
+// РћРїСЂРµРґРµР»СЏРµРј РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ СЃР°Рј СЃРёРјРІРѕР» (РёРјРµРµС‚ 5 С‚РѕС‡РµРє РІ С€РёСЂРёРЅСѓ Рё 7 РІ РІС‹СЃРѕС‚Сѓ) // 223 - РіСЂР°РґСѓСЃ
 flash byte char0[8]={ 0b00010000, 0b00010000, 0b00010000, 0b00010000, 0b00010000, 0b00010000, 0b00010000, 0b00010000};
 flash byte char1[8]={ 0b00011000, 0b00011000, 0b00011000, 0b00011000, 0b00011000, 0b00011000, 0b00011000, 0b00011000};
 flash byte char2[8]={ 0b00011100, 0b00011100, 0b00011100, 0b00011100, 0b00011100, 0b00011100, 0b00011100, 0b00011100};
 flash byte char3[8]={ 0b00011110, 0b00011110, 0b00011110, 0b00011110, 0b00011110, 0b00011110, 0b00011110, 0b00011110}; 
-flash byte charM[8]={ 0b10000111, 0b11000111, 0b10000010, 0b10010111, 0b10010101, 0b10011111, 0b10010101, 0b10010111}; // мотор
-flash byte charR[8]={ 0b10000011, 0b10000100, 0b10011111, 0b10010001, 0b10010001, 0b10011111, 0b10000100, 0b11011000}; // редуктор
-flash byte charS[8]={ 0b10000100, 0b10010001, 0b10001110, 0b10011011, 0b10001110, 0b10010001, 0b10000100, 0b11000000}; // солнышко
-flash byte charU[8]={ 0b10001010, 0b10011111, 0b10011011, 0b10010001, 0b10011011, 0b10011111, 0b10010001, 0b11011111}; // Батарейка
+flash byte charM[8]={ 0b10000111, 0b11000111, 0b10000010, 0b10010111, 0b10010101, 0b10011111, 0b10010101, 0b10010111}; // РјРѕС‚РѕСЂ
+flash byte charR[8]={ 0b10000011, 0b10000100, 0b10011111, 0b10010001, 0b10010001, 0b10011111, 0b10000100, 0b11011000}; // СЂРµРґСѓРєС‚РѕСЂ
+flash byte charS[8]={ 0b10000100, 0b10010001, 0b10001110, 0b10011011, 0b10001110, 0b10010001, 0b10000100, 0b11000000}; // СЃРѕР»РЅС‹С€РєРѕ
+flash byte charU[8]={ 0b10001010, 0b10011111, 0b10011011, 0b10010001, 0b10011011, 0b10011111, 0b10010001, 0b11011111}; // Р‘Р°С‚Р°СЂРµР№РєР°
 ///////////////////////////////////////////////////////////////////////////////////////
-int v=0; // Переменная с цикла для отладки прогрес бара
-void drawProgresBar(int valueProgres); // Объявление фунции для рисования прогресс-бара
-void drawTermoU(void); // Объявление фунции для рисования прогресс-бара
-void fnTest(int v_max); // функция для тестирования и отладки параметр - количество итераций
+int v=0; // РџРµСЂРµРјРµРЅРЅР°СЏ СЃ С†РёРєР»Р° РґР»СЏ РѕС‚Р»Р°РґРєРё РїСЂРѕРіСЂРµСЃ Р±Р°СЂР°
+void drawProgresBar(int valueProgres); // РћР±СЉСЏРІР»РµРЅРёРµ С„СѓРЅС†РёРё РґР»СЏ СЂРёСЃРѕРІР°РЅРёСЏ РїСЂРѕРіСЂРµСЃСЃ-Р±Р°СЂР°
+void drawTermoU(void); // РћР±СЉСЏРІР»РµРЅРёРµ С„СѓРЅС†РёРё РґР»СЏ СЂРёСЃРѕРІР°РЅРёСЏ РїСЂРѕРіСЂРµСЃСЃ-Р±Р°СЂР°
+void fnTest(int v_max); // С„СѓРЅРєС†РёСЏ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ Рё РѕС‚Р»Р°РґРєРё РїР°СЂР°РјРµС‚СЂ - РєРѕР»РёС‡РµСЃС‚РІРѕ РёС‚РµСЂР°С†РёР№
 ///////////////////////////////////////////////////////////////////////////////////////
 volatile int i_count_TIM1_OVF =0;
 char textTIM1_OVF[17];
-int cFds18b20 = 50;  // кол-во пропусков замеров температуры
-volatile unsigned int tachFltr = 0;	// результат после сокращения
-unsigned int tachFltr_Old = 0; // для определения разрешения перерисовки температур
+int cFds18b20 = 50;  // РєРѕР»-РІРѕ РїСЂРѕРїСѓСЃРєРѕРІ Р·Р°РјРµСЂРѕРІ С‚РµРјРїРµСЂР°С‚СѓСЂС‹
+volatile unsigned int tachFltr = 0;	// СЂРµР·СѓР»СЊС‚Р°С‚ РїРѕСЃР»Рµ СЃРѕРєСЂР°С‰РµРЅРёСЏ
+unsigned int tachFltr_Old = 0; // РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ СЂР°Р·СЂРµС€РµРЅРёСЏ РїРµСЂРµСЂРёСЃРѕРІРєРё С‚РµРјРїРµСЂР°С‚СѓСЂ
 ///////////////////////////////////////////////////////////////////////////////////////
-// Объявляем глобальные переменные
- volatile unsigned char xL=0; //,yL=0,zL=0; // Для захвата таймера
- volatile unsigned char xH=0; //,yH=0,zH=0; // Для захвата таймера
-//volatile unsigned int x=0, uiKilkistZamiriv=0, uiTestStop=0; // Для захвата таймера y=0,z=0,
+// РћР±СЉСЏРІР»СЏРµРј РіР»РѕР±Р°Р»СЊРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
+ volatile unsigned char xL=0; //,yL=0,zL=0; // Р”Р»СЏ Р·Р°С…РІР°С‚Р° С‚Р°Р№РјРµСЂР°
+ volatile unsigned char xH=0; //,yH=0,zH=0; // Р”Р»СЏ Р·Р°С…РІР°С‚Р° С‚Р°Р№РјРµСЂР°
+//volatile unsigned int x=0, uiKilkistZamiriv=0, uiTestStop=0; // Р”Р»СЏ Р·Р°С…РІР°С‚Р° С‚Р°Р№РјРµСЂР° y=0,z=0,
 //unsigned long int uiSumaZamiriv=0;
-// char str_tLH[7]; // использовался внутри while
-//unsigned char count = 0;			// Считаем количество замеров
-//volatile unsigned long int tachBuf = 0;			// буфер для суммы замеров
+// char str_tLH[7]; // РёСЃРїРѕР»СЊР·РѕРІР°Р»СЃСЏ РІРЅСѓС‚СЂРё while
+//unsigned char count = 0;			// РЎС‡РёС‚Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РјРµСЂРѕРІ
+//volatile unsigned long int tachBuf = 0;			// Р±СѓС„РµСЂ РґР»СЏ СЃСѓРјРјС‹ Р·Р°РјРµСЂРѕРІ
 //#define KILKIST_ZAMIRIV 8
-//volatile unsigned char tachBufL = 0; // буфер , tachBufH = 0
+//volatile unsigned char tachBufL = 0; // Р±СѓС„РµСЂ , tachBufH = 0
 
 //volatile int i_count_TIM1_OVF =0;
-//char textTIM1_OVF[17];    int cFds18b20 = 5;  // кол-во пропусков замеров температуры
-// volatile unsigned int tachFltr = 0;	// результат после сокращения
+//char textTIM1_OVF[17];    int cFds18b20 = 5;  // РєРѕР»-РІРѕ РїСЂРѕРїСѓСЃРєРѕРІ Р·Р°РјРµСЂРѕРІ С‚РµРјРїРµСЂР°С‚СѓСЂС‹
+// volatile unsigned int tachFltr = 0;	// СЂРµР·СѓР»СЊС‚Р°С‚ РїРѕСЃР»Рµ СЃРѕРєСЂР°С‰РµРЅРёСЏ
 ///////////////////////////////////////////////////////////////////////////
 int calc_drawTermoU = 0;
-char cFVectorA=0;		// Флаг для контроля направления ускорения
-char cFVectorA_old=0;	// Флаг для контроля направления ускорения и перерисовки температур в момент изменения направления вектора ускорения
+char cFVectorA=0;		// Р¤Р»Р°Рі РґР»СЏ РєРѕРЅС‚СЂРѕР»СЏ РЅР°РїСЂР°РІР»РµРЅРёСЏ СѓСЃРєРѕСЂРµРЅРёСЏ
+char cFVectorA_old=0;	// Р¤Р»Р°Рі РґР»СЏ РєРѕРЅС‚СЂРѕР»СЏ РЅР°РїСЂР°РІР»РµРЅРёСЏ СѓСЃРєРѕСЂРµРЅРёСЏ Рё РїРµСЂРµСЂРёСЃРѕРІРєРё С‚РµРјРїРµСЂР°С‚СѓСЂ РІ РјРѕРјРµРЅС‚ РёР·РјРµРЅРµРЅРёСЏ РЅР°РїСЂР°РІР»РµРЅРёСЏ РІРµРєС‚РѕСЂР° СѓСЃРєРѕСЂРµРЅРёСЏ
 ///////////////////////////////////////////////////////////////////////////
 
 // Voltage Reference: AVCC pin
 #define ADC_VREF_TYPE ((0<<REFS1) | (1<<REFS0) | (0<<ADLAR))
 // Voltage Reference: AREF pin
 //#define ADC_VREF_TYPE ((0<<REFS1) | (0<<REFS0) | (0<<ADLAR))
-unsigned int read_adc(unsigned char adc_input) // Возвращаем результат преобразования
-{ // попробовать вставить запрет на выполнение вдруг конфликты исчезнут...
+unsigned int read_adc(unsigned char adc_input) // Р’РѕР·РІСЂР°С‰Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ
+{ // РїРѕРїСЂРѕР±РѕРІР°С‚СЊ РІСЃС‚Р°РІРёС‚СЊ Р·Р°РїСЂРµС‚ РЅР° РІС‹РїРѕР»РЅРµРЅРёРµ РІРґСЂСѓРі РєРѕРЅС„Р»РёРєС‚С‹ РёСЃС‡РµР·РЅСѓС‚...
 ADMUX=adc_input | ADC_VREF_TYPE;
 // Delay needed for the stabilization of the ADC input voltage
 ////////////////////////delay_us(10);
@@ -118,7 +120,7 @@ char strU[5];
 
 //////////////////////////////////// 
 //char text[16];
-// Строка с примера DS18B20
+// РЎС‚СЂРѕРєР° СЃ РїСЂРёРјРµСЂР° DS18B20
 char lcd_buffer[33];
 /* maximum number of DS18B20 connected to the 1 Wire bus */
 #define MAX_DEVICES 3 
@@ -127,33 +129,33 @@ unsigned char rom_code[MAX_DEVICES][9];
 
 unsigned char devices;
 
-interrupt [TIM1_CAPT] void timer1_capt_isr(void) // Таймер1 вход захвата обработки прерывания
-{   xL = ICR1L; // ВНИМАНИЕ ВАЖНА ПОСЛЕДОВАТЕЛЬНОСТЬ | если поменять местами то один из них вообще 0
-    xH = ICR1H; // ВНИМАНИЕ ВАЖНА ПОСЛЕДОВАТЕЛЬНОСТЬ | если поменять местами то один из них вообще 0
-    TCNT1H=0;   // ВНИМАНИЕ ВАЖНА ПОСЛЕДОВАТЕЛЬНОСТЬ | Обнуляем счётный регистр TCNT1 = 0;
-    TCNT1L=0;   // ВНИМАНИЕ ВАЖНА ПОСЛЕДОВАТЕЛЬНОСТЬ | Обнуляем счётный регистр 
+interrupt [TIM1_CAPT] void timer1_capt_isr(void) // РўР°Р№РјРµСЂ1 РІС…РѕРґ Р·Р°С…РІР°С‚Р° РѕР±СЂР°Р±РѕС‚РєРё РїСЂРµСЂС‹РІР°РЅРёСЏ
+{   xL = ICR1L; // Р’РќРРњРђРќРР• Р’РђР–РќРђ РџРћРЎР›Р•Р”РћР’РђРўР•Р›Р¬РќРћРЎРўР¬ | РµСЃР»Рё РїРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°РјРё С‚Рѕ РѕРґРёРЅ РёР· РЅРёС… РІРѕРѕР±С‰Рµ 0
+    xH = ICR1H; // Р’РќРРњРђРќРР• Р’РђР–РќРђ РџРћРЎР›Р•Р”РћР’РђРўР•Р›Р¬РќРћРЎРўР¬ | РµСЃР»Рё РїРѕРјРµРЅСЏС‚СЊ РјРµСЃС‚Р°РјРё С‚Рѕ РѕРґРёРЅ РёР· РЅРёС… РІРѕРѕР±С‰Рµ 0
+    TCNT1H=0;   // Р’РќРРњРђРќРР• Р’РђР–РќРђ РџРћРЎР›Р•Р”РћР’РђРўР•Р›Р¬РќРћРЎРўР¬ | РћР±РЅСѓР»СЏРµРј СЃС‡С‘С‚РЅС‹Р№ СЂРµРіРёСЃС‚СЂ TCNT1 = 0;
+    TCNT1L=0;   // Р’РќРРњРђРќРР• Р’РђР–РќРђ РџРћРЎР›Р•Р”РћР’РђРўР•Р›Р¬РќРћРЎРўР¬ | РћР±РЅСѓР»СЏРµРј СЃС‡С‘С‚РЅС‹Р№ СЂРµРіРёСЃС‚СЂ 
     tachFltr = (xH << 8) | xL;   //#asm("cli")    //#asm("sei")
     i_count_TIM1_OVF=0; //    my_while();
 }
 
-interrupt [TIM1_OVF] void timer1_ovf_isr(void) // Таймер1 обработка прерывания по переполнению
-{   // Timer Period: 0,26214 s. Поэтому 20 циклов = 5,2428 секунд
-    if(i_count_TIM1_OVF < 20 ){ // Продолжаем считать пока <20, потом  Выключаем газовое реле 
-        i_count_TIM1_OVF++; // считаем количество срабатываний по переполнению
+interrupt [TIM1_OVF] void timer1_ovf_isr(void) // РўР°Р№РјРµСЂ1 РѕР±СЂР°Р±РѕС‚РєР° РїСЂРµСЂС‹РІР°РЅРёСЏ РїРѕ РїРµСЂРµРїРѕР»РЅРµРЅРёСЋ
+{   // Timer Period: 0,26214 s. РџРѕСЌС‚РѕРјСѓ 20 С†РёРєР»РѕРІ = 5,2428 СЃРµРєСѓРЅРґ
+    if(i_count_TIM1_OVF < 20 ){ // РџСЂРѕРґРѕР»Р¶Р°РµРј СЃС‡РёС‚Р°С‚СЊ РїРѕРєР° <20, РїРѕС‚РѕРј  Р’С‹РєР»СЋС‡Р°РµРј РіР°Р·РѕРІРѕРµ СЂРµР»Рµ 
+        i_count_TIM1_OVF++; // СЃС‡РёС‚Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ СЃСЂР°Р±Р°С‚С‹РІР°РЅРёР№ РїРѕ РїРµСЂРµРїРѕР»РЅРµРЅРёСЋ
     }
     else
     {   
-        PORTC.3=0;   // Выключаем газовое реле 
-        i_count_TIM1_OVF=1; // !!! ВСПОМНИТЬ ПОЧЕМУ устанавливаем в 1 после выключения реле
+        PORTC.3=0;   // Р’С‹РєР»СЋС‡Р°РµРј РіР°Р·РѕРІРѕРµ СЂРµР»Рµ 
+        i_count_TIM1_OVF=1; // !!! Р’РЎРџРћРњРќРРўР¬ РџРћР§Р•РњРЈ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІ 1 РїРѕСЃР»Рµ РІС‹РєР»СЋС‡РµРЅРёСЏ СЂРµР»Рµ
         tachFltr = 17000;
     }
 
-    if(i_count_TIM1_OVF == 2) { // Не будем долго дожидаться перед показом температур пока стоим   
-      bFdrawTermoU = 1;         // Возможно потом вообще уберу это условие
+    if(i_count_TIM1_OVF == 2) { // РќРµ Р±СѓРґРµРј РґРѕР»РіРѕ РґРѕР¶РёРґР°С‚СЊСЃСЏ РїРµСЂРµРґ РїРѕРєР°Р·РѕРј С‚РµРјРїРµСЂР°С‚СѓСЂ РїРѕРєР° СЃС‚РѕРёРј   
+      bFdrawTermoU = 1;         // Р’РѕР·РјРѕР¶РЅРѕ РїРѕС‚РѕРј РІРѕРѕР±С‰Рµ СѓР±РµСЂСѓ СЌС‚Рѕ СѓСЃР»РѕРІРёРµ
     }
 }
 
-// Описываем функцию записи символа в flash память экрана
+// РћРїРёСЃС‹РІР°РµРј С„СѓРЅРєС†РёСЋ Р·Р°РїРёСЃРё СЃРёРјРІРѕР»Р° РІ flash РїР°РјСЏС‚СЊ СЌРєСЂР°РЅР°
 void define_char(byte flash *pc,byte char_code)
 {   byte i,a;   a=(char_code<<3)|0x40;  for (i=0; i<8; i++) lcd_write_byte(a++,*pc++);
 }
@@ -171,20 +173,20 @@ CLKPR=(0<<CLKPCE) | (0<<CLKPS3) | (0<<CLKPS2) | (0<<CLKPS1) | (0<<CLKPS0);
 #pragma optsize+
 #endif
 
-// Инициализация портов
-// Порт B
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРѕСЂС‚РѕРІ
+// РџРѕСЂС‚ B
 // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
 DDRB=(0<<DDB7) | (0<<DDB6) | (0<<DDB5) | (0<<DDB4) | (0<<DDB3) | (0<<DDB2) | (0<<DDB1) | (0<<DDB0);
 // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
 PORTB=(0<<PORTB7) | (0<<PORTB6) | (0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (0<<PORTB0);
 
-// Порт C
+// РџРѕСЂС‚ C
 // Function: Bit6=In Bit5=In Bit4=In Bit3=Out Bit2=In Bit1=In Bit0=In 
 DDRC=(0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (1<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
 // State: Bit6=T Bit5=T Bit4=T Bit3=1 Bit2=T Bit1=T Bit0=T 
 PORTC=(0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (1<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
 
-// Порт D
+// РџРѕСЂС‚ D
 // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
 DDRD=(0<<DDD7) | (0<<DDD6) | (0<<DDD5) | (0<<DDD4) | (0<<DDD3) | (0<<DDD2) | (0<<DDD1) | (0<<DDD0);
 // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
@@ -316,7 +318,7 @@ w1_init();
 
 // Determine the number of DS1820 devices
 // connected to the 1 Wire bus
-// Запуск функции поиска 1wire устройств и запись их количества в переменную ds1820_devices.
+// Р—Р°РїСѓСЃРє С„СѓРЅРєС†РёРё РїРѕРёСЃРєР° 1wire СѓСЃС‚СЂРѕР№СЃС‚РІ Рё Р·Р°РїРёСЃСЊ РёС… РєРѕР»РёС‡РµСЃС‚РІР° РІ РїРµСЂРµРјРµРЅРЅСѓСЋ ds1820_devices.
 ds1820_devices=w1_search(0xf0,ds1820_rom_codes);
 
 // Alphanumeric LCD initialization  // Connections are specified in the
@@ -329,22 +331,22 @@ lcd_putsf("   Hello Ivan 3");
 lcd_putsf("\n    ");
 lcd_putsf(__TIME__);
 
- // Запись символов char0 - char4 по адресам 0х00 - 0х04 соответственноdefine_char(char0,0);
+ // Р—Р°РїРёСЃСЊ СЃРёРјРІРѕР»РѕРІ char0 - char4 РїРѕ Р°РґСЂРµСЃР°Рј 0С…00 - 0С…04 СЃРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕdefine_char(char0,0);
  define_char(char0,0);
  define_char(char1,1);
  define_char(char2,2);
  define_char(char3,3);
- define_char(charM,4); // Заносим в знакогенератор значёк Мотора
- define_char(charR,5); // Заносим в знакогенератор значёк редуктора 
- define_char(charS,6); // Заносим в знакогенератор значёк Солнышко
- define_char(charU,7); // Заносим в знакогенератор значёк аккумалятора-U
+ define_char(charM,4); // Р—Р°РЅРѕСЃРёРј РІ Р·РЅР°РєРѕРіРµРЅРµСЂР°С‚РѕСЂ Р·РЅР°С‡С‘Рє РњРѕС‚РѕСЂР°
+ define_char(charR,5); // Р—Р°РЅРѕСЃРёРј РІ Р·РЅР°РєРѕРіРµРЅРµСЂР°С‚РѕСЂ Р·РЅР°С‡С‘Рє СЂРµРґСѓРєС‚РѕСЂР° 
+ define_char(charS,6); // Р—Р°РЅРѕСЃРёРј РІ Р·РЅР°РєРѕРіРµРЅРµСЂР°С‚РѕСЂ Р·РЅР°С‡С‘Рє РЎРѕР»РЅС‹С€РєРѕ
+ define_char(charU,7); // Р—Р°РЅРѕСЃРёРј РІ Р·РЅР°РєРѕРіРµРЅРµСЂР°С‚РѕСЂ Р·РЅР°С‡С‘Рє Р°РєРєСѓРјР°Р»СЏС‚РѕСЂР°-U
 delay_ms(2800);
 lcd_clear();
 
-/* Определить, сколько устройств DS18B20 подключено к шине 1 Wire */
+/* РћРїСЂРµРґРµР»РёС‚СЊ, СЃРєРѕР»СЊРєРѕ СѓСЃС‚СЂРѕР№СЃС‚РІ DS18B20 РїРѕРґРєР»СЋС‡РµРЅРѕ Рє С€РёРЅРµ 1 Wire */
 devices=w1_search(0xf0,rom_code);
-// тут был тест номеров датчиков. Теперь он в fnTest()
-for (i=0;i<devices;) // Конфигурируем все датчики DS18B20_12BIT_RES 3 // 12 bit thermometer resolution
+// С‚СѓС‚ Р±С‹Р» С‚РµСЃС‚ РЅРѕРјРµСЂРѕРІ РґР°С‚С‡РёРєРѕРІ. РўРµРїРµСЂСЊ РѕРЅ РІ fnTest()
+for (i=0;i<devices;) // РљРѕРЅС„РёРіСѓСЂРёСЂСѓРµРј РІСЃРµ РґР°С‚С‡РёРєРё DS18B20_12BIT_RES 3 // 12 bit thermometer resolution
     if (!ds18b20_init_MY(&rom_code[i++][0],20,30,DS18B20_9BIT_RES))
     {
        sprintf(lcd_buffer,"Gluk datchika #%u\nperezagruzi #%u",i);
@@ -355,9 +357,9 @@ for (i=0;i<devices;) // Конфигурируем все датчики DS18B20_12BIT_RES 3 // 12 bit 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // fnTest(5000); // 1024 TEST TEST TEST
 //lcd_clear(); 
-//drawTermoU(); // Делаем ознакомительный замер температуры
+//drawTermoU(); // Р”РµР»Р°РµРј РѕР·РЅР°РєРѕРјРёС‚РµР»СЊРЅС‹Р№ Р·Р°РјРµСЂ С‚РµРјРїРµСЂР°С‚СѓСЂС‹
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-// Разрешаем глобальные прерывания
+// Р Р°Р·СЂРµС€Р°РµРј РіР»РѕР±Р°Р»СЊРЅС‹Рµ РїСЂРµСЂС‹РІР°РЅРёСЏ
 #asm("sei")
 
 //delay_ms(15000);
@@ -366,31 +368,31 @@ for (i=0;i<devices;) // Конфигурируем все датчики DS18B20_12BIT_RES 3 // 12 bit 
    
 while (1){
 	//////////////////////////////////// 
-	// В постоянном цикле Выводим задержку тахометра безоговорочно
+	// Р’ РїРѕСЃС‚РѕСЏРЅРЅРѕРј С†РёРєР»Рµ Р’С‹РІРѕРґРёРј Р·Р°РґРµСЂР¶РєСѓ С‚Р°С…РѕРјРµС‚СЂР° Р±РµР·РѕРіРѕРІРѕСЂРѕС‡РЅРѕ
 	// 
 	// lcd_puts(str_tLH);	//	lcd_puts("_");
 	// 
 	//  	if(calc_drawTermoU++ >15)
-  	if(bFdrawTermoU) // Возможно современем уберу это условие
+  	if(bFdrawTermoU) // Р’РѕР·РјРѕР¶РЅРѕ СЃРѕРІСЂРµРјРµРЅРµРј СѓР±РµСЂСѓ СЌС‚Рѕ СѓСЃР»РѕРІРёРµ
     {
         drawTermoU();		// calc_drawTermoU = 0;
-        bFdrawTermoU = 0;	// ЗАПРЕТИТЬ повторное перечитывание температур и U бортовой сети (после выполнения)
+        bFdrawTermoU = 0;	// Р—РђРџР Р•РўРРўР¬ РїРѕРІС‚РѕСЂРЅРѕРµ РїРµСЂРµС‡РёС‚С‹РІР°РЅРёРµ С‚РµРјРїРµСЂР°С‚СѓСЂ Рё U Р±РѕСЂС‚РѕРІРѕР№ СЃРµС‚Рё (РїРѕСЃР»Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ)
     }  ////////////////////////////////////fgfg fg fyh dy erh ye
 	
 
     if(i_count_TIM1_OVF == 0 ){
-//		drawProgresBar(5000 - tachFltr * 0.3); // пореводим в обороты за минуту (ltoa(5000 - tachFltr * 0.3, str_tLH);)
-		drawProgresBar(5000 - tachFltr * 0.6); // пореводим в обороты за минуту (ltoa(5000 - tachFltr * 0.3, str_tLH);)
+//		drawProgresBar(5000 - tachFltr * 0.3); // РїРѕСЂРµРІРѕРґРёРј РІ РѕР±РѕСЂРѕС‚С‹ Р·Р° РјРёРЅСѓС‚Сѓ (ltoa(5000 - tachFltr * 0.3, str_tLH);)
+		drawProgresBar(5000 - tachFltr * 0.6); // РїРѕСЂРµРІРѕРґРёРј РІ РѕР±РѕСЂРѕС‚С‹ Р·Р° РјРёРЅСѓС‚Сѓ (ltoa(5000 - tachFltr * 0.3, str_tLH);)
 
 		if(tachFltr_Old != tachFltr){
 
-			if(tachFltr_Old + 3 < tachFltr) // Когда обороты уменьшаются на 5 от последнего сохранения
+			if(tachFltr_Old + 3 < tachFltr) // РљРѕРіРґР° РѕР±РѕСЂРѕС‚С‹ СѓРјРµРЅСЊС€Р°СЋС‚СЃСЏ РЅР° 5 РѕС‚ РїРѕСЃР»РµРґРЅРµРіРѕ СЃРѕС…СЂР°РЅРµРЅРёСЏ
 			{
 				lcd_gotoxy(10,0);
 				lcd_puts("+ ");//  lcd_putchar('+');          i_count_TIM1_OVF =0 ;
 				cFVectorA = 1;
-			// Флаг для контроля направления ускорения
-			bFdrawTermoU = 1; // Разрешить перечитывание температур и U бортовой сети
+			// Р¤Р»Р°Рі РґР»СЏ РєРѕРЅС‚СЂРѕР»СЏ РЅР°РїСЂР°РІР»РµРЅРёСЏ СѓСЃРєРѕСЂРµРЅРёСЏ
+			bFdrawTermoU = 1; // Р Р°Р·СЂРµС€РёС‚СЊ РїРµСЂРµС‡РёС‚С‹РІР°РЅРёРµ С‚РµРјРїРµСЂР°С‚СѓСЂ Рё U Р±РѕСЂС‚РѕРІРѕР№ СЃРµС‚Рё
 			}
 			else
 			{
@@ -412,7 +414,7 @@ while (1){
 				lcd_gotoxy(10,0);
 				lcd_puts("><");//  lcd_putchar('+');          i_count_TIM1_OVF =0 ;
 		}
-			cFVectorA_old = cFVectorA;	// Флаг для контроля направления ускорения и перерисовки температур в момент изменения направления вектора ускорения
+			cFVectorA_old = cFVectorA;	// Р¤Р»Р°Рі РґР»СЏ РєРѕРЅС‚СЂРѕР»СЏ РЅР°РїСЂР°РІР»РµРЅРёСЏ СѓСЃРєРѕСЂРµРЅРёСЏ Рё РїРµСЂРµСЂРёСЃРѕРІРєРё С‚РµРјРїРµСЂР°С‚СѓСЂ РІ РјРѕРјРµРЅС‚ РёР·РјРµРЅРµРЅРёСЏ РЅР°РїСЂР°РІР»РµРЅРёСЏ РІРµРєС‚РѕСЂР° СѓСЃРєРѕСЂРµРЅРёСЏ
 
 		
 
@@ -432,14 +434,14 @@ while (1){
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-float fTermM_old = 0; // для функции drawTermoU защита от сбоев термодатчиков
-float fTermR_old = 0; // для функции drawTermoU защита от сбоев термодатчиков
-float fTermS_old = 0; // для функции drawTermoU защита от сбоев термодатчиков
-void drawTermoU(void) { // Выводим температур и U бортовой сети // #asm("cli") // lcd_clear();
+float fTermM_old = 0; // РґР»СЏ С„СѓРЅРєС†РёРё drawTermoU Р·Р°С‰РёС‚Р° РѕС‚ СЃР±РѕРµРІ С‚РµСЂРјРѕРґР°С‚С‡РёРєРѕРІ
+float fTermR_old = 0; // РґР»СЏ С„СѓРЅРєС†РёРё drawTermoU Р·Р°С‰РёС‚Р° РѕС‚ СЃР±РѕРµРІ С‚РµСЂРјРѕРґР°С‚С‡РёРєРѕРІ
+float fTermS_old = 0; // РґР»СЏ С„СѓРЅРєС†РёРё drawTermoU Р·Р°С‰РёС‚Р° РѕС‚ СЃР±РѕРµРІ С‚РµСЂРјРѕРґР°С‚С‡РёРєРѕРІ
+void drawTermoU(void) { // Р’С‹РІРѕРґРёРј С‚РµРјРїРµСЂР°С‚СѓСЂ Рё U Р±РѕСЂС‚РѕРІРѕР№ СЃРµС‚Рё // #asm("cli") // lcd_clear();
     float fRead_adc = 0;
-    float fTermM = 0; // для функции drawTermoU защита от сбоев термодатчиков
-    float fTermR = 0; // для функции drawTermoU защита от сбоев термодатчиков
-    float fTermS = 0; // для функции drawTermoU защита от сбоев термодатчиков
+    float fTermM = 0; // РґР»СЏ С„СѓРЅРєС†РёРё drawTermoU Р·Р°С‰РёС‚Р° РѕС‚ СЃР±РѕРµРІ С‚РµСЂРјРѕРґР°С‚С‡РёРєРѕРІ
+    float fTermR = 0; // РґР»СЏ С„СѓРЅРєС†РёРё drawTermoU Р·Р°С‰РёС‚Р° РѕС‚ СЃР±РѕРµРІ С‚РµСЂРјРѕРґР°С‚С‡РёРєРѕРІ
+    float fTermS = 0; // РґР»СЏ С„СѓРЅРєС†РёРё drawTermoU Р·Р°С‰РёС‚Р° РѕС‚ СЃР±РѕРµРІ С‚РµСЂРјРѕРґР°С‚С‡РёРєРѕРІ
     //////////////////////////////////////////////////////////////////
 //    if(cFds18b20 <= 0)
 //    {   //cFds18b20--;
@@ -462,7 +464,7 @@ void drawTermoU(void) { // Выводим температур и U бортовой сети // #asm("cli") /
                         6,fTermS_old, 223);
         lcd_gotoxy(0,0);
         lcd_puts(lcd_buffer);  //
- //       cFds18b20 = 4; // 400 кол-во пропусков замеров температуры 
+ //       cFds18b20 = 4; // 400 РєРѕР»-РІРѕ РїСЂРѕРїСѓСЃРєРѕРІ Р·Р°РјРµСЂРѕРІ С‚РµРјРїРµСЂР°С‚СѓСЂС‹ 
  //   }
  //   else
  //   {
@@ -473,12 +475,12 @@ void drawTermoU(void) { // Выводим температур и U бортовой сети // #asm("cli") /
 //int valueProgresOld = 0;
 char strTEMP[16];
 int i_raznostProgres;
-void fnDrav5element(void){ // Показіваем-рисуем один из 5-и символов 
+void fnDrav5element(void){ // РџРѕРєР°Р·С–РІР°РµРј-СЂРёСЃСѓРµРј РѕРґРёРЅ РёР· 5-Рё СЃРёРјРІРѕР»РѕРІ 
     int kkk = i_raznostProgres * 0.017793594306049; //  i_raznostProgres/56 == 0.0178571428571429
     if(kkk<4) lcd_putchar(kkk); else lcd_putchar(255);
 }
 
-void fnDrav5text(int *valueProgres){  // Показіваем числовое значение тахометра //// if(valueProgres<1685){  // valueProgres>500 && 
+void fnDrav5text(int *valueProgres){  // РџРѕРєР°Р·С–РІР°РµРј С‡РёСЃР»РѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ С‚Р°С…РѕРјРµС‚СЂР° //// if(valueProgres<1685){  // valueProgres>500 && 
 	itoa(*valueProgres, strTEMP);
 	lcd_gotoxy(6, 1);
 	lcd_puts(strTEMP);
@@ -487,21 +489,21 @@ void fnDrav5text(int *valueProgres){  // Показіваем числовое значение тахометра 
 
 void drawProgresBar(int valueProgres){
 lcd_gotoxy(0, 1);
-if (valueProgres > ROZ_16) { lcd_puts("яяяяяяяяяяяяяя^"); i_raznostProgres = valueProgres - ROZ_16; fnDrav5element(); lcd_puts("");  goto metka;}
-if (valueProgres > ROZ_15) { lcd_puts("яяяяяяяяяяяяяя"); i_raznostProgres = valueProgres - ROZ_15; fnDrav5element(); lcd_puts(" ");  goto metka;}
-if (valueProgres > ROZ_14) { lcd_puts("яяяяяяяяяяяяя"); i_raznostProgres = valueProgres - ROZ_14; fnDrav5element(); lcd_puts(" ");  goto metka;}   // goto metka;
-if (valueProgres > ROZ_13) { lcd_puts("яяяяяяяяяяяя"); i_raznostProgres = valueProgres - ROZ_13; fnDrav5element(); lcd_puts(" ");  goto metka;} // return;
-if (valueProgres > ROZ_12) { lcd_puts("яяяяяяяяяяя"); i_raznostProgres = valueProgres - ROZ_12; fnDrav5element(); lcd_puts(" ");  goto metka;}
-if (valueProgres > ROZ_11) { lcd_puts("яяяяяяяяяя"); i_raznostProgres = valueProgres - ROZ_11; fnDrav5element(); lcd_puts(" ");  goto metka;}
-if (valueProgres > ROZ_10) { lcd_puts("яяяяяяяяя"); i_raznostProgres = valueProgres - ROZ_10; fnDrav5element(); lcd_puts(" ");  goto metka;}
-if (valueProgres > ROZ_9 ) { lcd_puts("яяяяяяяя"); i_raznostProgres = valueProgres - ROZ_9;  fnDrav5element(); lcd_puts("  ");  goto metka;}
-if (valueProgres > ROZ_8 ) { lcd_puts("яяяяяяя"); i_raznostProgres = valueProgres - ROZ_8;  fnDrav5element(); lcd_puts("   ");  goto metka;}
-if (valueProgres > ROZ_7 ) { lcd_puts("яяяяяя"); i_raznostProgres = valueProgres - ROZ_7;  fnDrav5element(); lcd_puts("    ");  goto metka;}
-if (valueProgres > ROZ_6 ) { lcd_puts("яяяяя"); i_raznostProgres = valueProgres - ROZ_6;  fnDrav5element(); lcd_puts("     ");  goto metka;}
-if (valueProgres > ROZ_5 ) { lcd_puts("яяяя"); i_raznostProgres = valueProgres - ROZ_5;  fnDrav5element(); lcd_puts(" "); fnDrav5text(&valueProgres); goto metka;}  // "_"
-if (valueProgres > ROZ_4 ) { lcd_puts("яяя"); i_raznostProgres = valueProgres - ROZ_4;  fnDrav5element(); lcd_puts("  "); fnDrav5text(&valueProgres); goto metka;}  // "--"
-if (valueProgres > ROZ_3 ) { lcd_puts("яя"); i_raznostProgres = valueProgres - ROZ_3;  fnDrav5element(); lcd_puts("   "); fnDrav5text(&valueProgres); goto metka;}  // "+++"
-if (valueProgres > ROZ_2 ) { lcd_puts("я"); i_raznostProgres = valueProgres - ROZ_2;  fnDrav5element(); lcd_puts("    "); fnDrav5text(&valueProgres); goto metka;}  // "===="
+if (valueProgres > ROZ_16) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏ^"); i_raznostProgres = valueProgres - ROZ_16; fnDrav5element(); lcd_puts("");  goto metka;}
+if (valueProgres > ROZ_15) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_15; fnDrav5element(); lcd_puts(" ");  goto metka;}
+if (valueProgres > ROZ_14) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_14; fnDrav5element(); lcd_puts(" ");  goto metka;}   // goto metka;
+if (valueProgres > ROZ_13) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_13; fnDrav5element(); lcd_puts(" ");  goto metka;} // return;
+if (valueProgres > ROZ_12) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_12; fnDrav5element(); lcd_puts(" ");  goto metka;}
+if (valueProgres > ROZ_11) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_11; fnDrav5element(); lcd_puts(" ");  goto metka;}
+if (valueProgres > ROZ_10) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_10; fnDrav5element(); lcd_puts(" ");  goto metka;}
+if (valueProgres > ROZ_9 ) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_9;  fnDrav5element(); lcd_puts("  ");  goto metka;}
+if (valueProgres > ROZ_8 ) { lcd_puts("СЏСЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_8;  fnDrav5element(); lcd_puts("   ");  goto metka;}
+if (valueProgres > ROZ_7 ) { lcd_puts("СЏСЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_7;  fnDrav5element(); lcd_puts("    ");  goto metka;}
+if (valueProgres > ROZ_6 ) { lcd_puts("СЏСЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_6;  fnDrav5element(); lcd_puts("     ");  goto metka;}
+if (valueProgres > ROZ_5 ) { lcd_puts("СЏСЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_5;  fnDrav5element(); lcd_puts(" "); fnDrav5text(&valueProgres); goto metka;}  // "_"
+if (valueProgres > ROZ_4 ) { lcd_puts("СЏСЏСЏ"); i_raznostProgres = valueProgres - ROZ_4;  fnDrav5element(); lcd_puts("  "); fnDrav5text(&valueProgres); goto metka;}  // "--"
+if (valueProgres > ROZ_3 ) { lcd_puts("СЏСЏ"); i_raznostProgres = valueProgres - ROZ_3;  fnDrav5element(); lcd_puts("   "); fnDrav5text(&valueProgres); goto metka;}  // "+++"
+if (valueProgres > ROZ_2 ) { lcd_puts("СЏ"); i_raznostProgres = valueProgres - ROZ_2;  fnDrav5element(); lcd_puts("    "); fnDrav5text(&valueProgres); goto metka;}  // "===="
 if (valueProgres > ROZ_1 ) { lcd_puts(""); i_raznostProgres = valueProgres - ROZ_1;  fnDrav5element(); lcd_puts("          "); goto metka;}  // "&&&&&"
 metka:
 }
@@ -540,10 +542,10 @@ void fnTest(int v_max){
     for (v=0; v<v_max; v++)
     {
         drawProgresBar(v); //ltoa(long int n, char *str) // lcd_gotoxy(0,1); ltoa(x,str_tLH); ltoa(xH, str_tLH); lcd_puts(str_tLH); lcd_gotoxy(4,1); ltoa(x,str_tLH); ltoa(xL, str_tLH); lcd_puts(str_tLH);
-		// Маленькое примечание 3003 24028 //		lcd_gotoxy(0,1);//		lcd_puts("_____");
+		// РњР°Р»РµРЅСЊРєРѕРµ РїСЂРёРјРµС‡Р°РЅРёРµ 3003 24028 //		lcd_gotoxy(0,1);//		lcd_puts("_____");
         pause;
     }
 }
 
-// см. https://datagor.ru/microcontrollers/682-gryzem-mikrokontrollery.-urok-4..html
+// СЃРј. https://datagor.ru/microcontrollers/682-gryzem-mikrokontrollery.-urok-4..html
 
