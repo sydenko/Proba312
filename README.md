@@ -4,8 +4,6 @@
 Интересно получится ли вставить сюда svg код?
 Интересно <i>можно</i> <h1>ли My-Test-Edit</h1> <b>тут форматировать?</b>
 
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Created with "sPlan" (http://www.abacom-online.de) -->
 <svg version="1.1" baseProfile="full"  href="pajalnik.htm"
 xmlns="http://www.w3.org/2000/svg"
 xmlns:xlink="http://www.w3.org/1999/xlink"
