@@ -1,0 +1,101 @@
+// см. https://datagor.ru/microcontrollers/682-gryzem-mikrokontrollery.-urok-4..html
+
+
+
+     // j=1;
+     // for (i=0;i<devices;i++)
+     //     {
+////////чтение температуры второго датчика http://mega-avr.ucoz.ru/publ/ds18b20_connect_atmega8535/1-1-0-15
+//////    sprintf( LcdBuff2,"t2 %.2f \xefC", ds18b20_temperature( &RomCode[1][0] ) );
+//          sprintf(lcd_buffer,"%u%c = %.3f\xegh" "%c", j++, i+5, ds18b20_temperature(&rom_code[i][0]), 4);
+     ///     sprintf(lcd_buffer,"%c%.0f%c  %c%.0f%c  %c%.0f%c", 
+     //                           7,ds18b20_temperature(&rom_code[0][0]), 223,
+     //                           6,ds18b20_temperature(&rom_code[2][0]), 223
+     //                         );
+//          lcd_clear(); 
+    //      lcd_gotoxy(0,0);
+    //      lcd_puts(lcd_buffer);  //
+//          lcd_gotoxy(5,1);
+//          ftoa(ds18b20_temperature(&rom_code[i][0]), 4, text);
+//          lcd_puts(text);
+//      delay_ms(2500);
+      //    };
+.......................................................................      
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//    lcd_gotoxy(0,0);
+//    sprintf(text,"%+3d ",ds1820_temperature_10(&ds1820_rom_codes[0][0])/12);  // считывание датчика и деление на 10
+//    lcd_puts(text);
+// 
+//    sprintf(text,"%+3d ",ds1820_temperature_10(&ds1820_rom_codes[1][0])/12);
+//    lcd_puts(text);
+//        
+//    sprintf(text,"%+3d ",ds1820_temperature_10(&ds1820_rom_codes[2][0])/12);
+//    lcd_puts(text);
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////      
+#define ROZ_1	281
+#define ROZ_2	562
+#define ROZ_3	843
+#define ROZ_4	1124
+#define ROZ_5	1405
+#define ROZ_6	1686
+#define ROZ_7	1967
+#define ROZ_8	2248
+#define ROZ_9	2529
+#define ROZ_10	2810
+#define ROZ_11	3091
+#define ROZ_12	3372
+#define ROZ_13	3653
+#define ROZ_14	3934
+#define ROZ_15	4215
+#define ROZ_16	4496
+#define ROZ_17	4777
+#define ROZ_18	5058      
+--------------------------------------------
+iROZ
+valueProgres
+
+lcd_gotoxy(0, 1);
+if (valueProgres < ROZ_1 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_2 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_3 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_4 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_5 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_6 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_7 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_8 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_9 ) { lcd_putchar(255); }
+if (valueProgres < ROZ_10) { lcd_putchar(255); }
+if (valueProgres < ROZ_11) { lcd_putchar(255); }
+if (valueProgres < ROZ_12) { lcd_putchar(255); }
+if (valueProgres < ROZ_13) { lcd_putchar(255); }
+if (valueProgres < ROZ_14) { lcd_putchar(255); }
+if (valueProgres < ROZ_15) { lcd_putchar(255); }
+if (valueProgres < ROZ_16) { lcd_putchar(255); }
+if (valueProgres < ROZ_17) { lcd_putchar(255); }
+if (valueProgres < ROZ_18) { lcd_putchar(255); }
+      0000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+// Timer1 input capture interrupt service routine
+interrupt [TIM1_CAPT] void timer1_capt_isr(void)
+{   xL = ICR1L; // ¬Ќ»ћјЌ»≈ ¬ј∆Ќј ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќќ—“№ | если помен€ть местами то один из них вообще 0
+    xH = ICR1H; // ¬Ќ»ћјЌ»≈ ¬ј∆Ќј ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќќ—“№ | если помен€ть местами то один из них вообще 0
+    TCNT1H=0;   // ¬Ќ»ћјЌ»≈ ¬ј∆Ќј ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќќ—“№ | ќбнул€ем счЄтный регистр TCNT1 = 0;
+    TCNT1L=0;   // ¬Ќ»ћјЌ»≈ ¬ј∆Ќј ѕќ—Ћ≈ƒќ¬ј“≈Ћ№Ќќ—“№ | ќбнул€ем счЄтный регистр 
+    #asm("cli")
+ 	tachBuf += (xH << 8) | xL; // складываем значение регистра захвата в буфере unsigned long
+	count++; // накапливаем и считаем количество измерений где KILKIST_ZAMIRIV==8
+	if (count == KILKIST_ZAMIRIV)
+	{
+		tachFltr = (unsigned int)(tachBuf >> 3); // ¬место делени€ на 8 (горжусь собой за это локаничное решение)
+		tachBuf = 0; // ќчищаем буфер суммировани€
+		count = 0;   // —брасываем счЄтчик до чледующего полного оборота
+	}
+    #asm("sei")
+}
