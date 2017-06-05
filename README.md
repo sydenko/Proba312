@@ -1,6 +1,7 @@
-# hello-world (будущий Auto-tahometr-arduinoProMini-LCD)
-Описание первой попытки создать проект на сервисе https://guides.github.com/activities/hello-world/
-
-Интересно получится ли вставить сюда svg код?
-Интересно <i>можно</i> <h1>ли My-Test-Edit</h1> <b>тут форматировать?</b>
+# hello-world (Auto-tahometr-arduinoProMini-LCD)
+Моя первая попытки освоить сервис https://guides.github.com/activities/hello-world/
+	234
+<b>Поэтому</b> <i>прошу строго не судить</i>, <b>мне</b> и так <b>стыдно</b>, что вы это видите.
+Но ничего поделать не могу т.к. по условиям предоставления сервиса прятать можно только при условии платного аккаунта.
+Интересно можно <h1>ли My-Test-Edit</h1> <b>тут форматировать?</b>
 
