@@ -1,13 +1,14 @@
 # hello-world (Auto-tahometr-arduinoProMini-LCD)
 Моя первая попытки освоить сервис https://guides.github.com/activities/hello-world/ <br />
+<a href="https://guides.github.com/activities/hello-world/">освоить сервис</a>
 <br>
 <b>Поэтому</b> <i>прошу строго не судить</i>, <b>мне</b> и так <b>стыдно</b>, что вы это видите.
 Но ничего поделать не могу т.к. по условиям предоставления сервиса прятать можно только при условии платного аккаунта.
 <br>Интересно получится ли вставить сюда табличку<br>
 
 
-<table width="600px">
-   <tr>
+<table>
+   <tr color="red" >
     <th>&nbsp;</th><th>2016</th><th>2017</th><th>2018</th>
    </tr>
    <tr>
