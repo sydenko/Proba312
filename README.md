@@ -6,7 +6,7 @@
 <br>Интересно получится ли вставить сюда табличку<br>
 
 
-<table width="300px">
+<table width="600px">
    <tr>
     <th>&nbsp;</th><th>2016</th><th>2017</th><th>2018</th>
    </tr>
